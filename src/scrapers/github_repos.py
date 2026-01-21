@@ -19,15 +19,6 @@ class RepoConfig:
 
 
 REPOS = [
-    # SimplifyJobs New Grad - HTML table with Age column
-    RepoConfig(
-        owner="SimplifyJobs",
-        repo="New-Grad-Positions",
-        branch="dev",
-        readme_path="README.md",
-        parser="html_table",
-        section_pattern=r"## 💻 Software Engineering New Grad Roles",
-    ),
     # SimplifyJobs Summer 2026 Internships - HTML table with Age column
     RepoConfig(
         owner="SimplifyJobs",
