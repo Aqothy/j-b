@@ -103,7 +103,7 @@ title:
     - front[- ]?end
     - back[- ]?end
 
-  # Titles matching these are early-career: they notify with sound, other matches arrive silently.
+  # Titles matching these are marked 🟢 early-career; other relevant jobs are marked 🟡. Both notify.
   early_career:
     - intern(ship)?s?
     - co-?op

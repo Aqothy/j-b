@@ -12,7 +12,6 @@ import requests
 log = logging.getLogger(__name__)
 
 SUPPRESS_EMBEDS = 1 << 2  # no link previews
-SUPPRESS_NOTIFICATIONS = 1 << 12  # delivered silently (no push/sound)
 
 
 def from_env() -> "Discord | Console":
@@ -26,7 +25,7 @@ def from_env() -> "Discord | Console":
 
 
 def format_job(job: sqlite3.Row) -> str:
-    """🟢 = early-career title (sent with a notification), 🟡 = possible fit (sent silently)."""
+    """🟢 = early-career title, 🟡 = possible fit. Both notify; the icon is just a label."""
     icon = "🟢" if job["early_career"] else "🟡"
     lines = [f"{icon} **{_escape(job['company'])}** · [{_escape(job['title'])}](<{job['url']}>)"]
     details = []
@@ -57,8 +56,7 @@ class Discord:
         self.webhook_url = webhook_url
 
     def send_job(self, job: sqlite3.Row) -> None:
-        flags = SUPPRESS_EMBEDS | (0 if job["early_career"] else SUPPRESS_NOTIFICATIONS)
-        self._post(format_job(job), flags)
+        self._post(format_job(job), SUPPRESS_EMBEDS)
         time.sleep(self.SEND_INTERVAL)
 
     def send_text(self, text: str) -> None:

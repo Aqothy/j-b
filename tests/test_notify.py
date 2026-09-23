@@ -23,7 +23,7 @@ def test_format_job_escapes_markdown():
     assert "**R\\_D**" in text and "[Engineer \\[C++\\] \\*Remote\\*]" in text
 
 
-def test_possible_fits_are_silent_and_rate_limits_are_retried(monkeypatch):
+def test_every_job_notifies_and_rate_limits_are_retried(monkeypatch):
     responses = [
         SimpleNamespace(status_code=429, ok=False, json=lambda: {"retry_after": 0}),
         SimpleNamespace(status_code=204, ok=True),
@@ -38,5 +38,5 @@ def test_possible_fits_are_silent_and_rate_limits_are_retried(monkeypatch):
     monkeypatch.setattr(notify.Discord, "SEND_INTERVAL", 0)
     notify.Discord("https://discord.test/webhook").send_job(pending_job(early_career=False))
     assert len(sent) == 2
-    assert sent[-1]["flags"] & notify.SUPPRESS_NOTIFICATIONS
+    assert sent[-1]["flags"] == notify.SUPPRESS_EMBEDS  # possible fits notify too
     assert sent[-1]["allowed_mentions"] == {"parse": []}
