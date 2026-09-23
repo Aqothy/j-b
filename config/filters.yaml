@@ -1,0 +1,313 @@
+# Relevance rules. Philosophy: drop obvious mismatches, keep anything uncertain.
+#
+# Every pattern is a case-insensitive regular expression that must match whole words,
+# so `engineer` does NOT match "engineering" -- write `engineer(ing)?` for that.
+# Use (?-i:...) to make part of a pattern case-sensitive.
+
+title:
+  # A title must match at least one of these...
+  include:
+    - software
+    - developers?
+    - development
+    - engineers?
+    - engineering
+    - programm(er|ing)
+    - swe
+    - sde
+    - member of technical staff
+    - full[- ]?stack
+    - front[- ]?end
+    - back[- ]?end
+    - web
+    - mobile
+    - ios
+    - android
+    - cloud
+    - devops
+    - sre
+    - site reliability
+    - platform
+    - infrastructure
+    - systems
+    - technology
+    - tech
+    - computer science
+    - computer scientist
+    - computing
+    - ai
+    - ml
+    - machine learning
+    - automation
+    - python
+    - java
+    - compilers?
+
+  # Always dropped: degree requirements you don't have.
+  exclude:
+    - phd
+    - mba
+    - postdoc(toral)?
+
+  # Dropped unless the title also has an early-career word (e.g. "Software Engineer / Principal ... New Grad").
+  senior:
+    - senior
+    - sr\.?
+    - (?<!technical )(?<!data )staff  # not "Member of Technical Staff", which some companies use for every level
+    - principal
+    - lead
+    - manager
+    - director
+    - head of
+    - vp
+    - vice president
+    - chief
+    - architect
+    - distinguished
+    - (?-i:IV|V|VI)
+
+  # Other disciplines that share words like "engineer" or "technology". Dropped unless the title
+  # also clearly says software (so "Software Engineer - Hardware Tools" is kept).
+  other_disciplines:
+    - hardware
+    - electrical
+    - mechanical
+    - civil
+    - chemical
+    - structural
+    - manufacturing
+    - industrial
+    - process engineer
+    - field engineer
+    - asic
+    - fpga
+    - rtl
+    - analog
+    - silicon
+    - rf
+    - physical design
+    - design verification
+    - sales
+    - account executive
+    - business development
+    - marketing
+    - recruiters?
+    - designer
+    - technician
+  clearly_software:
+    - software
+    - developers?
+    - development
+    - programm(er|ing)
+    - full[- ]?stack
+    - front[- ]?end
+    - back[- ]?end
+
+  # Titles matching these are early-career: they notify with sound, other matches arrive silently.
+  early_career:
+    - intern(ship)?s?
+    - co-?op
+    - student
+    - new grad(uate)?s?
+    - graduate
+    - university
+    - campus
+    - early[- ]career
+    - entry[- ]level
+    - junior
+    - jr\.?
+    - associate
+    - apprentice(ship)?
+    - residency
+    - fellow(ship)?
+    - (engineer|developer) (?-i:I|1)
+    - 20\d\d
+
+location:
+  # A job is dropped only if its locations mention somewhere `elsewhere` and nothing in Canada/US.
+  # Unknown locations ("Remote", "3 Locations") are kept.
+  canada:
+    - canada
+    - ontario
+    - quebec
+    - british columbia
+    - alberta
+    - manitoba
+    - saskatchewan
+    - nova scotia
+    - new brunswick
+    - newfoundland
+    - toronto
+    - waterloo
+    - kitchener
+    - vancouver
+    - burnaby
+    - ottawa
+    - montr[eé]al
+    - calgary
+    - edmonton
+    - mississauga
+    - markham
+    - halifax
+    - winnipeg
+    - gatineau
+    - "(?<=, )(?-i:ON|BC|QC|AB|MB|SK|NS|NB|NL|PE)"
+  us:
+    - united states( of america)?
+    - usa
+    - u\.s\.a?\.?
+    - (?-i:US)
+    - america
+    - americas
+    - new york
+    - nyc
+    - san francisco
+    - bay area
+    - seattle
+    - boston
+    - austin
+    - chicago
+    - los angeles
+    - denver
+    - atlanta
+    - washington
+    - california
+    - texas
+    - "(?<=, )(?-i:AL|AK|AZ|AR|CA|CO|CT|DE|DC|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)"
+  elsewhere:
+    - europe
+    - emea
+    - apac
+    - asia
+    - latam
+    - uk
+    - united kingdom
+    - england
+    - scotland
+    - london
+    - cambridge, uk
+    - ireland
+    - dublin
+    - germany
+    - berlin
+    - munich
+    - france
+    - paris
+    - netherlands
+    - amsterdam
+    - spain
+    - madrid
+    - barcelona
+    - portugal
+    - lisbon
+    - italy
+    - milan
+    - poland
+    - warsaw
+    - krak[oó]w
+    - romania
+    - bucharest
+    - czech(ia| republic)?
+    - prague
+    - sweden
+    - stockholm
+    - denmark
+    - copenhagen
+    - norway
+    - oslo
+    - finland
+    - helsinki
+    - switzerland
+    - z[üu]rich
+    - austria
+    - vienna
+    - belgium
+    - brussels
+    - hungary
+    - budapest
+    - greece
+    - athens
+    - serbia
+    - belgrade
+    - ukraine
+    - estonia
+    - lithuania
+    - turkey
+    - istanbul
+    - israel
+    - tel aviv
+    - yokneam
+    - uae
+    - dubai
+    - saudi arabia
+    - egypt
+    - nigeria
+    - kenya
+    - south africa
+    - india
+    - bengaluru
+    - bangalore
+    - hyderabad
+    - pune
+    - chennai
+    - mumbai
+    - delhi
+    - gurgaon
+    - gurugram
+    - noida
+    - china
+    - beijing
+    - shanghai
+    - shenzhen
+    - hong kong
+    - taiwan
+    - taipei
+    - japan
+    - tokyo
+    - korea
+    - seoul
+    - singapore
+    - malaysia
+    - kuala lumpur
+    - indonesia
+    - jakarta
+    - philippines
+    - manila
+    - vietnam
+    - thailand
+    - bangkok
+    - australia
+    - sydney
+    - melbourne
+    - new zealand
+    - brazil
+    - s[ãa]o paulo
+    - mexico
+    - argentina
+    - buenos aires
+    - colombia
+    - bogot[áa]
+    - chile
+    - santiago
+    - costa rica
+    - uruguay
+    - armenia
+
+description:
+  # Drop the job if the description (or Simplify's sponsorship field) matches one of these.
+  exclude:
+    - u\.?s\.? citizenship( is)? required
+    - must be an? (\(i\) )?u\.?s\.? (citizen|person)
+    - itar requirements
+    - (requires|require|required|must have|must hold) (an? )?(active )?(u\.?s\.? )?(security|secret|top secret|ts/sci) clearance
+    - active (secret|top secret|ts/sci) clearance
+
+  # Shown on the notification when matched; never used to drop a job.
+  flags:
+    "(not|unable to|cannot|won't|will not|does not) (offer|provide|sponsor)[^.]{0,40}(sponsorship|visa)|does not offer sponsorship": "no visa sponsorship"
+    "offers sponsorship": "offers sponsorship"
+    "security clearance": "mentions security clearance"
+
+  # Drop jobs whose smallest "N+ years ... experience" ask is at least this many years.
+  # Smaller asks (e.g. 2-4 years) are kept and shown on the notification.
+  drop_at_years: 5

@@ -1,0 +1,155 @@
+# Where to look for jobs. Format, under the section for the company's ATS:
+#
+#   Company Name: <ident>
+#
+# or, for a company with several boards:
+#
+#   Company Name:
+#     - <ident>
+#     - <ident>
+#
+# To add a company: open its careers page, click a job, and look at the URL.
+#   boards.greenhouse.io/<ident>/...  or job-boards.greenhouse.io/<ident>/...  -> greenhouse
+#   jobs.lever.co/<ident>/...                                                   -> lever
+#   jobs.ashbyhq.com/<ident>/...                                                -> ashby
+#   <tenant>.wd<N>.myworkdayjobs.com/<site>/...                                 -> workday (paste host/site)
+# Then run `uv run jobhunt check <name>` to confirm it works, and commit.
+# `uv run jobhunt suggest` lists boards behind recent Simplify postings that aren't here yet.
+# To pause a company, comment out its line.
+
+greenhouse:
+  # Canada
+  Ada: ada18
+  Dialpad: dialpad
+  Faire: faire
+  Geotab: internshiplist2000
+  Hootsuite: hootsuite
+  Later: later
+  Mozilla: mozilla
+  Visier: visiersolutionsinc
+  # US / global with Canadian offices or remote-Canada roles
+  Affirm: affirm
+  Airbnb: airbnb
+  Anthropic: anthropic
+  Asana: asana
+  Axon: axon
+  Block: block
+  Brex: brex
+  Cloudflare: cloudflare
+  Coinbase: coinbase
+  Databricks: databricks
+  Datadog: datadog
+  Discord: discord
+  DoorDash: doordashusa
+  Dropbox: dropbox
+  Duolingo: duolingo
+  Figma: figma
+  GitLab: gitlab
+  Instacart: instacart
+  Lyft: lyft
+  Mercury: mercury
+  MongoDB: mongodb
+  Okta: okta
+  Pinterest: pinterest
+  Reddit: reddit
+  Robinhood: robinhood
+  Roblox: roblox
+  Samsara: samsara
+  Scale AI: scaleai
+  Sigma Computing: sigmacomputing
+  SpaceX: spacex
+  Stripe: stripe
+  Tailscale: tailscale
+  Twilio: twilio
+  Twitch: twitch
+  Vercel: vercel
+  Verkada: verkada
+  Waymo: waymo
+  xAI: xai
+
+lever:
+  AltaML: altaml
+  Fullscript: fullscript
+  Kabam: kabam
+  Magnet Forensics: magnetforensics
+  Palantir: palantir
+  Spotify: spotify
+  Veeva Systems: veeva
+  Wattpad: wattpad
+
+ashby:
+  # Canada
+  1Password: 1password
+  Benevity: benevity
+  Cohere: cohere
+  Hopper: hopper
+  Jerry: jerry.ai
+  Jobber: jobber
+  KOHO: koho
+  Klue: klue
+  Lightspeed: lightspeedhq
+  Neo Financial: neofinancial
+  Pogo: joinpogo
+  Solink: solink
+  Super.com: super.com
+  Trulioo: trulioo
+  Wealthsimple: wealthsimple
+  # US / global
+  Benchling: benchling
+  Cerebras: cerebras
+  Confluent: confluent
+  Cursor: cursor
+  Linear: linear
+  Notion: notion
+  OpenAI: openai
+  Perplexity: perplexity
+  Plaid: plaid
+  Ramp: ramp
+  Replit: replit
+  Rivian and VW Group Technologies: rivianvw.tech
+  Sentry: sentry
+  Snowflake: snowflake
+  Supabase: supabase
+
+workday:
+  # Big boards are narrowed with ?q=... or facet filters, since every match is paged through each run.
+  Autodesk:
+    - autodesk.wd1.myworkdayjobs.com/uni
+    - autodesk.wd1.myworkdayjobs.com/Ext?q=software
+  BlackBerry:
+    - bb.wd3.myworkdayjobs.com/Student
+    - bb.wd3.myworkdayjobs.com/QNX
+  BMO:
+    - bmo.wd3.myworkdayjobs.com/Campus
+    - bmo.wd3.myworkdayjobs.com/Privileged
+    - bmo.wd3.myworkdayjobs.com/External?q=software
+  CIBC:
+    - cibc.wd3.myworkdayjobs.com/campus
+    - cibc.wd3.myworkdayjobs.com/search?q=software
+  CAE: cae.wd3.myworkdayjobs.com/career?q=software
+  Capital One: capitalone.wd12.myworkdayjobs.com/Capital_One?q=software engineer
+  Ciena: ciena.wd5.myworkdayjobs.com/Careers?q=software
+  Intact: intactfc.wd3.myworkdayjobs.com/intactfc?q=software
+  Interac: interac.wd3.myworkdayjobs.com/Interac
+  Manulife: manulife.wd3.myworkdayjobs.com/MFCJH_Jobs?q=software
+  Mastercard: mastercard.wd1.myworkdayjobs.com/Campus
+  # Intern + New College Graduate job types only
+  NVIDIA: nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite?workerSubType=0c40f6bd1d8f10adf6dae42e46d44a17&workerSubType=ab40a98049581037a3ada55b087049b7
+  RBC:
+    - rbc.wd3.myworkdayjobs.com/RBCEARLYTALENT1
+    - rbc.wd3.myworkdayjobs.com/ExternalPrivatePostingStudents
+    # Technology Development and Engineering sub-category (RBC's Workday is slow, so keep this narrow)
+    - rbc.wd3.myworkdayjobs.com/rbcglobal1?Sub_Category=7911130ac480011863776997e8de0000
+  Salesforce: salesforce.wd12.myworkdayjobs.com/External_Career_Site?q=software engineer
+  SOTI:
+    - soti.wd3.myworkdayjobs.com/Careers
+    - soti.wd3.myworkdayjobs.com/SOTI-Next-Gen
+  Sun Life: sunlife.wd3.myworkdayjobs.com/Campus
+  TD: td.wd3.myworkdayjobs.com/TD_Bank_Careers?q=software
+  Thomson Reuters: thomsonreuters.wd5.myworkdayjobs.com/External_Career_Site?q=software
+  Trend Micro: trendmicro.wd3.myworkdayjobs.com/External?q=software
+
+simplify:
+  # Backfill: catches big-tech and other companies not listed above (polled every 30 min).
+  New Grad: SimplifyJobs/New-Grad-Positions
+  Internships: SimplifyJobs/Summer2027-Internships

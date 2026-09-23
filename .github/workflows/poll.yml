@@ -1,0 +1,44 @@
+name: Poll jobs
+
+on:
+  schedule:
+    # GitHub runs schedules best-effort: expect a run every ~5-15 minutes, occasionally longer.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+# Runs must not overlap: each one continues from the database the previous run saved.
+concurrency:
+  group: poll
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      # The SQLite database lives in the Actions cache: restore the newest copy, save a new one after.
+      # If it's ever lost, the next run silently re-seeds (no flood of old jobs), and polling carries on.
+      - name: Restore database
+        uses: actions/cache/restore@v6
+        with:
+          path: data/jobs.db
+          key: jobs-db-${{ github.run_id }}
+          restore-keys: jobs-db-
+
+      - name: Poll sources and notify
+        run: uv run jobhunt run
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Save database
+        if: always() && hashFiles('data/jobs.db') != ''
+        uses: actions/cache/save@v6
+        with:
+          path: data/jobs.db
+          key: jobs-db-${{ github.run_id }}-${{ github.run_attempt }}

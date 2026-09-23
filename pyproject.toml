@@ -1,0 +1,19 @@
+[project]
+name = "jobhunt"
+version = "0.1.0"
+description = "Get a Telegram message minutes after a relevant SWE job is posted."
+requires-python = ">=3.12"
+dependencies = ["requests>=2.32", "pyyaml>=6"]
+
+[project.scripts]
+jobhunt = "jobhunt.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 120
