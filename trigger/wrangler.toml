@@ -1,0 +1,18 @@
+name = "jobhunt-trigger"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+# Cron-only Worker: no public URL needed.
+workers_dev = false
+preview_urls = false
+
+# Kick off the GitHub Actions poll workflow; GitHub's own schedule is too unreliable.
+[triggers]
+crons = ["*/5 * * * *"]
+
+[vars]
+GITHUB_REPO = "Aqothy/j-b"
+WORKFLOW_FILE = "poll.yml"
+GITHUB_REF = "main"
+
+# Secret (not committed): GITHUB_TOKEN, a fine-grained PAT scoped to the repo with Actions: Read and write.
+# Set it with: npx wrangler secret put GITHUB_TOKEN

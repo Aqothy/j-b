@@ -2,7 +2,8 @@ name: Poll jobs
 
 on:
   schedule:
-    # GitHub runs schedules best-effort: expect a run every ~5-15 minutes, occasionally longer.
+    # Primary trigger is the Cloudflare Worker in trigger/ (GitHub delays or drops frequent schedules);
+    # this schedule is a best-effort fallback.
     - cron: "*/5 * * * *"
   workflow_dispatch:
 
