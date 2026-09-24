@@ -22,3 +22,7 @@ Thumbs.db
 # Project specific
 *.log
 data/
+
+# Cloudflare Worker
+.wrangler/
+node_modules/

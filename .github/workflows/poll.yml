@@ -4,7 +4,7 @@ on:
   schedule:
     # Primary trigger is the Cloudflare Worker in trigger/ (GitHub delays or drops frequent schedules);
     # this schedule is a best-effort fallback.
-    - cron: "*/5 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 # Runs must not overlap: each one continues from the database the previous run saved.
