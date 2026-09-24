@@ -38,4 +38,5 @@ def to_job(listing: dict) -> Job:
         published_at=parse_time(listing["date_posted"]),
         # Simplify has no description, but its sponsorship field feeds the same work-authorization rules.
         description=f"Sponsorship: {listing.get('sponsorship', '')}",
+        internship=bool(listing.get("terms")),  # only the internship list has terms ("Summer 2027")
     )

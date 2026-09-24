@@ -25,3 +25,4 @@ class Job:
     published_at: datetime | None = None
     description: str | None = None  # None means "not fetched"; see details_url
     details_url: str | None = None  # fetched lazily by the adapter's load_details()
+    internship: bool = False  # known to be an internship whatever the title says (Simplify's internship list)

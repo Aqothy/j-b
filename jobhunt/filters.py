@@ -48,6 +48,7 @@ class Filters:
     def __init__(self, config: dict):
         title, location, description = config["title"], config["location"], config["description"]
         self.title_include = _any_of(title["include"])
+        self.title_require = _any_of(title.get("require") or [])
         self.title_exclude = _any_of(title["exclude"])
         self.senior = _any_of(title["senior"])
         self.other_disciplines = _any_of(title["other_disciplines"])
@@ -60,16 +61,23 @@ class Filters:
         self.flags = [(_any_of([pattern]), note) for pattern, note in description.get("flags", {}).items()]
         self.drop_at_years = description["drop_at_years"]
 
-    def title_reason(self, title: str) -> str | None:
-        """Why this title is irrelevant, or None if it should be kept. Cheap: runs before fetching details."""
+    def is_early_career(self, title: str, internship: bool = False) -> bool:
+        return internship or bool(_search(self.early_career, title) or _search(self.title_require, title))
+
+    def title_reason(self, title: str, internship: bool = False) -> str | None:
+        """Why this title is irrelevant, or None if it should be kept. Cheap: runs before fetching details.
+
+        `internship` means the job is known to be one, so the `require` check is skipped."""
         if excluded := _search(self.title_exclude, title):
             return f"title has '{excluded}'"
-        if (senior := _search(self.senior, title)) and not _search(self.early_career, title):
+        if (senior := _search(self.senior, title)) and not self.is_early_career(title, internship):
             return f"title has '{senior}'"
         if (other := _search(self.other_disciplines, title)) and not _search(self.clearly_software, title):
             return f"title has '{other}'"
         if not _search(self.title_include, title):
             return "title isn't software-related"
+        if self.title_require and not internship and not _search(self.title_require, title):
+            return "title isn't an internship"
         return None
 
     def location_reason(self, location: str) -> str | None:
@@ -81,7 +89,7 @@ class Filters:
         return None
 
     def assess(self, job: Job) -> Verdict:
-        if reason := self.title_reason(job.title):
+        if reason := self.title_reason(job.title, job.internship):
             return Verdict(False, reason)
 
         if reason := self.location_reason(job.location):
@@ -98,5 +106,5 @@ class Filters:
             notes.append(f"asks {years}+ yrs")
         notes += [note for pattern, note in self.flags if _search(pattern, description)]
 
-        early = bool(_search(self.early_career, job.title)) or (years is not None and years <= 1)
+        early = self.is_early_career(job.title, job.internship) or (years is not None and years <= 1)
         return Verdict(True, early_career=early, notes=notes)

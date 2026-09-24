@@ -90,7 +90,7 @@ def _ingest(
 
 
 def _assess(job: Job, source: Source, filters: Filters) -> Verdict:
-    if reason := filters.title_reason(job.title):
+    if reason := filters.title_reason(job.title, job.internship):
         return Verdict(False, reason)
     adapter = ADAPTERS[source.kind]
     if job.description is None and hasattr(adapter, "load_details"):

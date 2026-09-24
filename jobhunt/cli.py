@@ -60,7 +60,7 @@ def check_sources(sources: list[Source], filters: Filters, match: str) -> None:
             if isinstance(result, Exception):
                 print(f"✗ {source.name} ({source.id}): {type(result).__name__}: {result}")
                 continue
-            kept = [j for j in result if not (filters.title_reason(j.title) or filters.location_reason(j.location))]
+            kept = [j for j in result if not (filters.title_reason(j.title, j.internship) or filters.location_reason(j.location))]
             print(f"✓ {source.name} ({source.id}): {len(result)} jobs, {len(kept)} pass title/location, {seconds:.1f}s")
             if match:  # a single company: show the titles too
                 for job in kept:

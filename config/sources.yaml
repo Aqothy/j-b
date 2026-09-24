@@ -151,5 +151,5 @@ workday:
 
 simplify:
   # Backfill: catches big-tech and other companies not listed above (polled every 30 min).
-  New Grad: SimplifyJobs/New-Grad-Positions
+  # New Grad: SimplifyJobs/New-Grad-Positions  # paused: internships only for now (see filters.yaml `require`)
   Internships: SimplifyJobs/Summer2027-Internships

@@ -43,6 +43,33 @@ title:
     - java
     - compilers?
 
+  # ...and, if this list is non-empty, also at least one of these. Currently internships only;
+  # comment out every entry (or set `require: []`) to also get new grad and full-time roles.
+  # Deliberately wide: a few non-internships slipping through is better than missing one.
+  # Titles matching these also count as early-career (🟢, and "Senior ... Intern" is kept).
+  # Jobs from Simplify's internship list skip this check: everything on it is an internship.
+  require:
+    - intern(ship)?s?
+    - co[- ]?op
+    - students?
+    - stagiaire
+    - summer
+    - (fall|autumn|winter|spring)[ -]'?(20)?\d\d  # "Fall 2026", but not "Spring Boot"
+    - off[- ]cycle
+    - work[- ]?terms?
+    - placements?
+    - (?-i:PEY)  # UofT's Professional Experience Year
+    - undergrad(uate)?s?
+    - apprentice(ship)?s?
+    - trainees?
+    - extern(ship)?s?
+    - fellow(ship)?s?
+    - residency
+    - practicum
+    - early[- ](career|talent|in[- ]career)
+    - university(?! grad)  # not "University Graduate", which is new grad
+    - campus
+
   # Always dropped: degree requirements you don't have.
   exclude:
     - phd
